@@ -5,7 +5,9 @@ import { useEffect, useRef } from "react";
 const CHECK_SVG = `<svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>`;
 const COPY_SVG = `<svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
 
-export default function ArticleContent({ html }: { html: string }) {
+import { ReactNode } from "react";
+
+export default function ArticleContent({ contentNode }: { contentNode: ReactNode }) {
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -90,13 +92,11 @@ export default function ArticleContent({ html }: { html: string }) {
             topBar.appendChild(btn);
             wrapper.insertBefore(topBar, pre);
         });
-    }, [html]);
+    }, [contentNode]);
 
     return (
-        <div
-            ref={ref}
-            className="prose"
-            dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <div ref={ref} className="prose">
+            {contentNode}
+        </div>
     );
 }
