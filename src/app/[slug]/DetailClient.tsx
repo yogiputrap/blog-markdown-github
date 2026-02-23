@@ -54,7 +54,8 @@ export default function DetailClient({ slug }: DetailClientProps) {
             >
                 <div className="relative flex items-center justify-center">
                     <svg
-                        className={`w-5 h-5 transition-transform duration-200 ${hasLiked ? "text-red-500 fill-red-500" : "text-gray-400 group-hover:text-red-400"} ${animateLike ? "scale-125" : "scale-100"}`}
+                        className={`w-5 h-5 transition-transform duration-200 ${hasLiked ? "text-red-500" : "text-gray-400 group-hover:text-red-400"} ${animateLike ? "scale-125" : "scale-100"}`}
+                        fill={hasLiked ? "currentColor" : "none"}
                         stroke="currentColor"
                         viewBox="0 0 24 24"
                     >
