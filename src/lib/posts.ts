@@ -134,8 +134,13 @@ export async function getAllPosts(): Promise<Post[]> {
         })
     );
 
+    // Filter out empty/untitled stub files
+    const validPosts = posts.filter(
+        (p) => !(p.title === "Untitled" && p.readingTime === "0 min read")
+    );
+
     // Sort by date descending (newest first), "No date" at the end
-    return posts.sort((a, b) => {
+    return validPosts.sort((a, b) => {
         if (a.date === "No date" && b.date === "No date") return 0;
         if (a.date === "No date") return 1;
         if (b.date === "No date") return -1;
