@@ -57,6 +57,21 @@ function extractTitleFromContent(content: string): string {
 }
 
 /**
+ * Extract the first image URL from markdown content to use as cover
+ */
+function extractFirstImage(content: string): string {
+    // Matches ![alt text](url)
+    const match = content.match(/!\[.*?\]\((.+?)\)/);
+    if (match) return match[1];
+
+    // Matches <img src="url" ... />
+    const htmlMatch = content.match(/<img[^>]+src=['"]([^'"]+)['"]/i);
+    if (htmlMatch) return htmlMatch[1];
+
+    return "";
+}
+
+/**
  * Generate a gradient placeholder for posts without covers
  */
 function getPlaceholderGradient(slug: string): string {
@@ -105,7 +120,7 @@ export async function getAllPosts(): Promise<Post[]> {
                     .trim()
                     .slice(0, 160) + "...";
 
-            const cover = frontmatter.cover || "";
+            const cover = frontmatter.cover || extractFirstImage(content) || "";
             const tags: string[] = frontmatter.tags
                 ? Array.isArray(frontmatter.tags)
                     ? frontmatter.tags
@@ -174,7 +189,7 @@ export async function getPostBySlug(
                     .trim()
                     .slice(0, 160) + "...";
 
-            const cover = frontmatter.cover || "";
+            const cover = frontmatter.cover || extractFirstImage(content) || "";
             const tags: string[] = frontmatter.tags
                 ? Array.isArray(frontmatter.tags)
                     ? frontmatter.tags
