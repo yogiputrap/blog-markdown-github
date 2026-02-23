@@ -71,12 +71,27 @@ function extractFirstImage(content: string): string {
     return "";
 }
 
-/**
- * Generate a gradient placeholder for posts without covers
- */
 function getPlaceholderGradient(slug: string): string {
-    // Return a uniform, subtle slate/gray gradient matching the light theme
-    return "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)";
+    // Array of subtle, muted pastel gradients (Tailwind 100->200 shades)
+    const gradients = [
+        "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)", // Soft Blue
+        "linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)", // Soft Indigo
+        "linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)", // Soft Emerald
+        "linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%)", // Soft Orange
+        "linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)", // Soft Pink
+        "linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)", // Soft Purple
+        "linear-gradient(135deg, #ccfbf1 0%, #99f6e4 100%)", // Soft Teal
+        "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)", // Soft Amber
+        "linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%)", // Soft Rose
+        "linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)", // Soft Slate
+    ];
+
+    // Use slug hash to pick a consistent gradient
+    let hash = 0;
+    for (let i = 0; i < slug.length; i++) {
+        hash = slug.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return gradients[Math.abs(hash) % gradients.length];
 }
 
 export async function getAllPosts(): Promise<Post[]> {
