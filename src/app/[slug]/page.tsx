@@ -78,6 +78,10 @@ export default async function PostPage({ params }: { params: Params }) {
                             style={{ background: getPlaceholderGradient(post!.slug) }}
                         />
                     )}
+
+                    {/* Consistent overlay for hero images */}
+                    <div className="absolute inset-0 bg-black/[0.03] mix-blend-multiply z-10 pointer-events-none" />
+                    <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] z-20 pointer-events-none" />
                 </div>
 
                 <div className="px-5 pt-6 pb-4 space-y-4">

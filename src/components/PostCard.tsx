@@ -44,6 +44,10 @@ export default function PostCard({ post }: PostCardProps) {
                         />
                     )}
 
+                    {/* Consistent overlay for images */}
+                    <div className="absolute inset-0 bg-black/[0.03] mix-blend-multiply transition-colors group-hover:bg-transparent z-10" />
+                    <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.06)] rounded-xl z-20 pointer-events-none" />
+
                     {shortDate && (
                         <div className="absolute bottom-1.5 left-1.5 bg-white/90 text-[9px] font-bold text-gray-700 px-1.5 py-0.5 rounded-md leading-tight tracking-tight">
                             {shortDate}
